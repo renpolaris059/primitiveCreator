@@ -14,14 +14,14 @@ class PrimitiveCreatorDialog(QtWidgets.QDialog):
 	def __init__(self,parent=None):
 		super().__init__(parent)
 
-		self.resize(300,330)
+		self.resize(300,350)
 		self.setWindowTitle("Primitive Creator")
 
 		self.main_layout = QtWidgets.QVBoxLayout()
 		self.setLayout(self.main_layout)
 
 		self.primitive_listWidget = QtWidgets.QListWidget()
-		self.primitive_listWidget.setIconSize(QtCore.QSize(50,50))
+		self.primitive_listWidget.setIconSize(QtCore.QSize(60,60))
 		self.primitive_listWidget.setSpacing(5)
 		self.primitive_listWidget.setViewMode(QtWidgets.QListView.IconMode)
 		self.primitive_listWidget.setMovement(QtWidgets.QListView.Static)
