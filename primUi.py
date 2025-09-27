@@ -34,13 +34,24 @@ class PrimitiveCreatorDialog(QtWidgets.QDialog):
 
 		self.name_label = QtWidgets.QLabel("Name : ")
 		self.name_lineEdit = QtWidgets.QLineEdit()
+		self.name_lineEdit.setStyleSheet('background-color:grey; color:#D8E48F, font-family:Coveat')
 		self.name_layout.addWidget(self.name_label)
 		self.name_layout.addWidget(self.name_lineEdit)
 
 		self.button_layout = QtWidgets.QHBoxLayout()
 		self.main_layout.addLayout(self.button_layout)
+		
 		self.create_button = QtWidgets.QPushButton("Create")
+		self.create_button.setStyleSheet(
+			'''
+			QPushButton {
+				background-color: #FC878E
+			}
+			'''
+			)
+		
 		self.cancel_button = QtWidgets.QPushButton("Cancel")
+		
 		self.button_layout.addStretch()
 		self.button_layout.addWidget(self.create_button)
 		self.button_layout.addWidget(self.cancel_button)
