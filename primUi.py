@@ -5,6 +5,7 @@ except:
 	from PySide2 import QtCore, QtWidgets, QtGui
 	from shiboken2 import wrapInstance
 
+from . import primUtil as pmutil
 import maya.OpenMayaUI as omui
 import os
 
@@ -34,7 +35,7 @@ class PrimitiveCreatorDialog(QtWidgets.QDialog):
 
 		self.name_label = QtWidgets.QLabel("Name : ")
 		self.name_lineEdit = QtWidgets.QLineEdit()
-		self.name_lineEdit.setStyleSheet('background-color:grey; color:#D8E48F, font-family:Coveat')
+		self.name_lineEdit.setStyleSheet('background-color:#591C21; color:#FACFCE')
 		self.name_layout.addWidget(self.name_label)
 		self.name_layout.addWidget(self.name_lineEdit)
 
@@ -45,13 +46,22 @@ class PrimitiveCreatorDialog(QtWidgets.QDialog):
 		self.create_button.setStyleSheet(
 			'''
 			QPushButton {
-				background-color: #FC878E
+				background-color: #8C1F28
 			}
 			'''
 			)
-		
+		self.create_button.clicked.connect(self.onClickCreate)
+
 		self.cancel_button = QtWidgets.QPushButton("Cancel")
-		
+		self.cancel_button.setStyleSheet(
+			'''
+			QPushButton {
+				background-color: #8C1F28
+			}
+			'''
+			)
+		self.cancel_button.clicked.connect(self.close)
+
 		self.button_layout.addStretch()
 		self.button_layout.addWidget(self.create_button)
 		self.button_layout.addWidget(self.cancel_button)
@@ -63,7 +73,16 @@ class PrimitiveCreatorDialog(QtWidgets.QDialog):
 		for prim in prims:
 			item = QtWidgets.QListWidgetItem(prim)
 			item.setIcon(QtGui.QIcon(os.path.join(ICON_PATH, f'{prim}')))
+			item.setData(QtCore.Qt.UserRole, prim)
 			self.primitive_listWidget.addItem(item)
+
+	def onClickCreate(self):
+		item = self.primitive_listWidget.currentItem()
+		if not item:
+			return
+		prim = item.data(QtCore.Qt.UserRole)
+		name = self.name_lineEdit.text().strip()
+		pmutil.createPrim(prim, name)
 
 def run():
 	global ui
